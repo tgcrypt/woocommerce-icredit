@@ -1,0 +1,13 @@
+
+.invoice-button-small {
+    display: block;
+    position: relative;
+    padding: 2px 0!important;
+    height: 2em!important;
+    width: 2em;
+    border:none !important;
+    background: url('images/icon-pdf.png') center center no-repeat !important;
+    text-indent: -9999px;
+}
+
+.invoice-button {margin:10px 10px 5px 10px !important;}

@@ -1,0 +1,258 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Woocommerce iCredit\n"
+"POT-Creation-Date: 2014-08-18 08:00+0200\n"
+"PO-Revision-Date: 2014-08-27 16:55+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: class-wc-gateway-icredit-payment.php:35
+#: class-wc-gateway-icredit-payment.php:127
+msgid "iCredit Payment"
+msgstr "תשלום באמצעות iCredit"
+
+#: class-wc-gateway-icredit-payment.php:118
+msgid "Enable/Disable"
+msgstr "הפעל / השבת"
+
+#: class-wc-gateway-icredit-payment.php:120
+msgid "Enable iCredit Payment"
+msgstr "אפשר תשלומים באמצעות iCredit"
+
+#: class-wc-gateway-icredit-payment.php:124
+msgid "Payment Method Title"
+msgstr "שם אמצעי התשלום"
+
+#: class-wc-gateway-icredit-payment.php:126
+msgid "This controls the title which the user sees during checkout."
+msgstr "זו הכותרת שהגולש יראה בזמן סיום הרכישה"
+
+#: class-wc-gateway-icredit-payment.php:131
+msgid "Payment Method Description"
+msgstr "תיאור אמצעי התשלום"
+
+#: class-wc-gateway-icredit-payment.php:133
+msgid "Pay via iCredit - secure payment page."
+msgstr "שלם באמצעות כרטיס אשראי דרך iCredit"
+
+#: class-wc-gateway-icredit-payment.php:137
+msgid "Group Private Token"
+msgstr "טוקן הקבוצה"
+
+#: class-wc-gateway-icredit-payment.php:142
+msgid "Test Group Private Token (optional)"
+msgstr "טוקן קבוצת ניסיון"
+
+#: class-wc-gateway-icredit-payment.php:147
+msgid "Max Payments"
+msgstr "מספר תשלומים אפשרי"
+
+#: class-wc-gateway-icredit-payment.php:152
+msgid "Credit From Payment"
+msgstr "עסקת קרדיט מתשלום"
+
+#: class-wc-gateway-icredit-payment.php:160
+msgid "Create Token"
+msgstr "יצירת טוקן לעסקה"
+
+#: class-wc-gateway-icredit-payment.php:167
+msgid "Test Mode"
+msgstr "מצב בדיקה"
+
+#: class-wc-gateway-icredit-payment.php:169
+msgid "Use test mode"
+msgstr "כדי להשתמש במצב בדיקה יש להכניס גם \"טוקן קבוצת בדיקה\""
+
+#: class-wc-gateway-icredit-payment.php:174
+msgid "Document Language"
+msgstr "שפת המסמך"
+
+#: class-wc-gateway-icredit-payment.php:175
+msgid ""
+"Select the language the invoice should be created. Select \"By Country Code"
+"\" to create Hebrew documents for Israel and English for any other country."
+msgstr ""
+"בחר את השפה בה תופק החשבונית. בחר \"על-פי מדינה\" על-מנת ליצור מסמכים בעברית "
+"עבור לקוחות מישראל ומסמכים באנגלית עבור שאר הלקוחות."
+
+#: class-wc-gateway-icredit-payment.php:180
+msgid "Always Hebrew"
+msgstr "תמיד בעברית"
+
+#: class-wc-gateway-icredit-payment.php:181
+msgid "Always English"
+msgstr "תמיד באנגלית"
+
+#: class-wc-gateway-icredit-payment.php:182
+msgid "By Country Code"
+msgstr "על-פי מדינה"
+
+#: class-wc-gateway-icredit-payment.php:190
+msgid "Exampt VAT"
+msgstr "פטור ממע\"מ"
+
+#: class-wc-gateway-icredit-payment.php:191
+msgid "Select if to exempt VAT."
+msgstr "בחר האם לתת פטור ממע\"מ"
+
+#: class-wc-gateway-icredit-payment.php:195
+msgid "Always Not Exempt"
+msgstr "בשום מקרה אין לתת פטור ממע\"מ"
+
+#: class-wc-gateway-icredit-payment.php:196
+msgid "Always Exempt"
+msgstr "תמיד יש לתת פטור ממע\"מ"
+
+#: class-wc-gateway-icredit-payment.php:197
+msgid "By Shipping Country"
+msgstr "על-פי המדינה המופיעה בכתובת המשלוח"
+
+#: class-wc-gateway-icredit-payment.php:198
+msgid "By Billing Country"
+msgstr "על-פי מדינה המופיעה בכתובת התשלום"
+
+#: class-wc-gateway-icredit-payment.php:199
+msgid "By Shipping or Billing Country"
+msgstr "על-פי כתובת התשלום או כתובת המשלוח"
+
+#: class-wc-gateway-icredit-payment.php:207
+msgid "<h2>Payment View</h2>"
+msgstr "<h2>תצוגת התשלום</h2>"
+
+#: class-wc-gateway-icredit-payment.php:212
+msgid "PopUp Mode"
+msgstr "מצב פופ-אפ"
+
+#: class-wc-gateway-icredit-payment.php:214
+msgid "Use PopUp for payment? (or Redirect)"
+msgstr "האם להציג את חלון התשלום בפופ-אפ? (אם לא תתבצע הפניה לעמוד התשלום)"
+
+#: class-wc-gateway-icredit-payment.php:217
+msgid "Redirect"
+msgstr "הפניה"
+
+#: class-wc-gateway-icredit-payment.php:218
+msgid "iFrame"
+msgstr "מסגרת iFrame"
+
+#: class-wc-gateway-icredit-payment.php:219
+msgid "Lightbox PopUp"
+msgstr "חלון צף Lightbox"
+
+#: class-wc-gateway-icredit-payment.php:225
+msgid "iFrame Height"
+msgstr "גובה המסגרת iFrame"
+
+#: class-wc-gateway-icredit-payment.php:227
+#, php-format
+msgid "i.e. 100% or 800px. Default: 600px . "
+msgstr "i.e. 100% or 800px. Default: 600px . "
+
+#: class-wc-gateway-icredit-payment.php:232
+msgid "iFrame Width"
+msgstr "רוחב מסגרת iFrame"
+
+#: class-wc-gateway-icredit-payment.php:234
+msgid "i.e 100% or 300px. Default: 100% . "
+msgstr "למשל 100% או 300px . ברירת המחדל: 100%"
+
+#: class-wc-gateway-icredit-payment.php:239
+msgid "PopUp Height"
+msgstr "גובה החלון הצף"
+
+#: class-wc-gateway-icredit-payment.php:241
+msgid "i.e 400px. Default: auto (min. height is 600px"
+msgstr "למשל 400px. ברירת המחדל: אוטומטי, מינימום 600px"
+
+#: class-wc-gateway-icredit-payment.php:247
+msgid "PopUp Width"
+msgstr "רוחב החלון הצף"
+
+#: class-wc-gateway-icredit-payment.php:249
+msgid "i.e 600px. Default: 600px"
+msgstr "למשל 600px. ברירת המחדל: 600px"
+
+#: class-wc-gateway-icredit-payment.php:257
+msgid "Hide Items on Payment Page"
+msgstr "הסתרת המוצרים בעמוד התשלום"
+
+#: class-wc-gateway-icredit-payment.php:263
+msgid "Thank You page URL"
+msgstr "כתובת דף תודה"
+
+#: class-wc-gateway-icredit-payment.php:265
+msgid ""
+"Leave empty to use iCredit Group Settings. <br />Leave iCredit Group "
+"Redirect URL Setting empty in order to use WooCommerce default thank you "
+"page (<strong>recommended</strong>)."
+msgstr ""
+"השאר ריק על-מנת להשתמש בהגדרות שב-iCredit . מומלץ להשאיר גם את הגדרת iCredit "
+"להפניה ריקה על-מנת להשתמש בדף התודה של המערכת."
+
+#: class-wc-gateway-icredit-payment.php:273
+msgid "<h2>Transmitted Information</h2>"
+msgstr "<h2>מידע שנשלח</h2>"
+
+#: class-wc-gateway-icredit-payment.php:278
+msgid "First Name"
+msgstr "שם פרטי"
+
+#: class-wc-gateway-icredit-payment.php:284
+msgid "Last Name"
+msgstr "שם משפחה"
+
+#: class-wc-gateway-icredit-payment.php:290
+msgid "e-mail Address"
+msgstr "כתובת דוא\"ל"
+
+#: class-wc-gateway-icredit-payment.php:296
+msgid "Address"
+msgstr "כתובת"
+
+#: class-wc-gateway-icredit-payment.php:303
+msgid "City"
+msgstr "עיר"
+
+#: class-wc-gateway-icredit-payment.php:309
+msgid "Zip Code"
+msgstr "מיקוד"
+
+#: class-wc-gateway-icredit-payment.php:315
+msgid "Phone Number"
+msgstr "מספר טלפון"
+
+#: class-wc-gateway-icredit-payment.php:321
+msgid "Company Name"
+msgstr "שם החברה"
+
+#: class-wc-gateway-icredit-payment.php:327
+msgid "User Comments"
+msgstr "הערות הלקוח"
+
+#~ msgid "Title"
+#~ msgstr "שם שיטת התשלום"
+
+#~ msgid "Customer Message"
+#~ msgstr "הסבר קצר אודות שיטת התשלום"
+
+#~ msgid ""
+#~ "URL to redirect the user after a successful payment. Make sure to set the "
+#~ "Thank-You-Page URL here or on iCredit group settings"
+#~ msgstr ""
+#~ "כתובת רשת להפנית הגולש לאחר תשלום מוצלח. אנא וודאו שהנתון הזה מוגדר כאן "
+#~ "או בהגדרות קבוצה ב-iCredit"
+
+#~ msgid "Leave empty to use iCredit Group Settings"
+#~ msgstr "השאר ריק על-מנת להשתמש בנתון שהוגדר בקבוצה ב-iCredit "
