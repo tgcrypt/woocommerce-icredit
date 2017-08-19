@@ -1,4 +1,3 @@
-
 <?php 
 require_once('../../../wp-load.php');
 $redirect = WC()->session->get('icredit_iframe_redirect_url');
@@ -21,7 +20,4 @@ else
     $redirect .= 'Token='.$token;
 }
 ?>
-
-<script>
-    window.top.location = "<?= $redirect; ?>";
-</script>
+<script>window.top.location = "<?= $redirect; ?>";</script>

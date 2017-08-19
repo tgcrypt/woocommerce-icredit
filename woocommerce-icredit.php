@@ -2,16 +2,12 @@
 /*
  * Plugin Name: Woocommerce iCredit
  * Description: Enable iCredit (Rivhit) Payment Gateway
- * Version: 1.2.7
- * Author: NeutrinoTeam.com
+ * Version: 1.2.2
+ * Author: rivhit.co.il
  * Requires at least: 3.5
- * Tested up to: 4.4
+ * Tested up to: 4.3
  *
  * Change Log:
- * 06-04-2016: v1.2.7	: PayPal invoice IPN fixed.
- * 08-02-2016: v1.2.6	: iFrame is Back!
- * 08-02-2016: v1.2.5	: Removed stupid sidebar & breadcrumbs removal hook
- * 04-02-2016: v1.2.3	: Change in IPN remote method
  * 26-10-2015: v1.2.2  : PayPal Integration fix. Variations as sub-items. PayPal Free Text.
  * 30-09-2015: v1.2.1  : PayPal Integration update.
  * 30-09-2015: v1.2  : Code clean up.
@@ -94,10 +90,10 @@ class iCredit{
 
         if (is_admin()) wp_enqueue_style('print_invoice_button', plugin_dir_url( __FILE__ ).'css/admin-print-invoice.css');
 		//REMOVING BREADCRUMBS
-		//remove_action( 'woocommerce_before_main_content','woocommerce_breadcrumb', 20, 0);
+		remove_action( 'woocommerce_before_main_content','woocommerce_breadcrumb', 20, 0);
 		
 		//Remove shop side bar
-		//remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 		
 	}
 

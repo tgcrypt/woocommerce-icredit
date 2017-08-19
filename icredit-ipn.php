@@ -20,6 +20,11 @@ global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header, $woocommerce;
     }
 
 
+#set wpml token 
+if($IPNPost['Custom2']== true){
+    $icredit->payment_token = $icredit->real_token_lang_1;
+}
+
 $ipn_logger->add('rivhit_ipn', 'IPN POST DUMP: '.print_r($IPNPost, true));
 $ipn_logger->add('rivhit_ipn', 'Payment Token: '. $icredit->payment_token);
 $ipn_logger->add('rivhit_ipn', 'Order: '. $IPNPost['Order']);

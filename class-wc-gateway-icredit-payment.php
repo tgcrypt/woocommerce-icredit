@@ -74,14 +74,11 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         $this->paypal_create_customer = $this->get_option( 'paypal_create_customer' );
         $this->popup_mode = $this->get_option('popup_mode');
         $this->iframe_height = $this->get_option('iframe_height');
+        $this->http_https = $this->get_option('http_https');    
 
 
 
-
-        $this->mailchimp_integration = $this->get_option( 'mailchimp_integration' ) == 'yes';
-        $this->mailchimp_api = $this->get_option('mailchimp_api');
-        $this->mailchimp_list_id = $this->get_option('mailchimp_list_id');
-
+        
 
         $this->field_firstname   = $this->get_option( 'field_firstname' ) == 'yes';
         $this->field_lastname   = $this->get_option( 'field_lastname' ) == 'yes';
@@ -99,7 +96,11 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         $this->icredit_payment_gateway_url = $this->test_mode ? self::ICREDIT_PAYMENT_GATEWAY_URL_TEST : self::ICREDIT_PAYMENT_GATEWAY_URL_REAL ;
 
         $this->payment_token = $this->test_mode ? $this->get_option ( 'test_token') : $this->get_option ( 'real_token');
+#wpml token add by omeravhar 23.11.16
+        $this->payment_token = $this->test_mode ? $this->get_option ( 'test_token') : $this->get_option ( 'real_token');
 
+        $this->real_token_lang_symbol_1 = $this->get_option ( 'real_token_lang_symbol_1' );
+        $this->real_token_lang_1 = $this->get_option ( 'real_token_lang_1' );
 
 
 		// Actions
@@ -184,6 +185,13 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 'type' => 'text',
                 'default' => 'bb8a47ab-42e0-4b7f-ba08-72d55f2d9e41'
             ),
+            
+            'test_mode'	=> array(
+                'title'	=> __('Test Mode', 'woocommerce_icredit'),
+                'type'	=> 'checkbox',
+                'label'	=> __('Use test mode', 'woocommerce_icredit'),
+                'default' => 'yes'
+            ),
 
             'max_payments' => array(
                 'title' => __('Max Payments', 'woocommerce_icredit'),
@@ -203,13 +211,21 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 'default' => 'no'
             ),
 
+            
+            'http_https'	=> array(
+                'title'	=> __('IPN Protocol', 'woocommerce_icredit'),
+                'type'	=> 'select',
+                'label'	=> __('', 'woocommerce_icredit'),
 
-            'test_mode'	=> array(
-                'title'	=> __('Test Mode', 'woocommerce_icredit'),
-                'type'	=> 'checkbox',
-                'label'	=> __('Use test mode', 'woocommerce_icredit'),
-                'default' => 'yes'
+                'options' => array(
+                    'http'	=> __('http', 'woocommerce_icredit'),
+
+                    'https'		=> __('https', 'woocommerce_icredit'),
+                   
+                ),
+                'default' => 'http',
             ),
+            
 
             'document_language'	=> array(
                 'title'	=> __('Document Language', 'woocommerce_icredit'),
@@ -428,38 +444,25 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 'default' => ''
             ),
 
-
-
-
-
-
-            'subheading4'	=> array(
-                'title'	=> __('<h2>Mailchimp Integration</h2>', 'woocommerce_icredit'),
+             'subheading5'	=> array(
+                'title'	=> __('<h2>WPML Integration</h2>', 'woocommerce_icredit'),
                 'type'	=> 'title'
             ),
 
 
-
-
-            'mailchimp_integration'	=> array(
-                'title'	=> __('Mailchimp Integration', 'woocommerce_icredit'),
-                'type'	=> 'checkbox',
-                'label'	=> __('Check this if you wish to send client email, first name and last name to Mailchimp.', 'woocommerce_icredit'),
-                'default' => 'yes'
-            ),
-
-
-            'mailchimp_api' => array(
-                'title' => __('Mailchimp API Key', 'woocommerce_icredit'),
+            'real_token_lang_symbol_1' => array(
+                'title' => __('Second Language', 'woocommerce_icredit'),
                 'type' => 'text',
-                'label'	=> __('If you don\'t got one, please genereate one. Go to <strong>Mailchimp>Account>Extras>API Keys</strong>. and Create a new API Key.', 'woocommerce_icredit'),
+                'description' => 'i.e. EN, HE, IT, FR'
             ),
 
-            'mailchimp_list_id' => array(
-                'title' => __('Mailchimp List ID', 'woocommerce_icredit'),
+            'real_token_lang_1' => array(
+                'title' => __('Second Language Token', 'woocommerce_icredit'),
                 'type' => 'text',
-                'label'	=> __('To obtain your list ID, please go to your list then choose <strong>Settings>List name and Defaults</strong> and look for List ID.', 'woocommerce_icredit'),
-            ),
+
+            ),        
+
+
 
 
 
@@ -469,31 +472,7 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
 
 
 
-    public function start_mailchimp_integration($post){
-        include_once('api/mailchimp.php');
-
-        $MailChimp = new Drewm\MailChimp($this->mailchimp_api);
-
-
-        $mailchimp_args = array(
-            'id'                => $this->mailchimp_list_id,
-            'email'             => array('email'=>$post['payer_email']),
-            'merge_vars'        => array('FNAME'=>$post['first_name'], 'LNAME'=>$post['last_name']),
-            'double_optin'      => false,
-            'update_existing'   => true,
-            'replace_interests' => false,
-            'send_welcome'      => false,
-        );
-        $mailchimp_api_result = $MailChimp->call('lists/subscribe', $mailchimp_args);
-
-        $logger = new WC_Logger();
-        $logger->add('rivhit', 'Mailchimp API Sent');
-        $logger->add('rivhit', 'mailchimp_args: ' . print_r($mailchimp_args, true));
-        $logger->add('rivhit', 'mailchimp_api: ' . $this->mailchimp_api);
-        $logger->add('rivhit', 'mailchimp_list_id: ' .  $this->mailchimp_list_id);
-        $logger->add('rivhit', 'mailchimp_api_result: ' .  print_r($mailchimp_api_result, true) );
-
-    }
+    
 
 
     /**
@@ -525,12 +504,10 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
 
 
         $logger->add('rivhit-paypal', 'Phase 2' );
-        /* Send to MailChimp API */
+       
+        
 
-        if ($this->mailchimp_integration && $this->mailchimp_api && $this->mailchimp_list_id) {
-            $logger->add('rivhit-paypal', 'MailChimp Integration Fired');
-            $this->start_mailchimp_integration($post);
-        }
+        
 
 
         /* Exit if PayPal payments should not be integrated */
@@ -610,7 +587,6 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
 
         $order = new WC_Order( $order_id );
 
-
         $billing_country =  ($order->billing_country == 'IL' || $order->billing_country == '')?'IL':$order->billing_country;
         $shipping_country =  ($order->shipping_country == 'IL' || $order->shipping_country == '')?'IL':$order->shipping_country;
 
@@ -681,11 +657,34 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         $logger->add('rivhit_process_payment', 'Shipping and Items added');
 
         $ipn_url = plugins_url( '/', __FILE__ ).'icredit-ipn.php' ;
-        $ipn_url = str_replace('https:','http:',$ipn_url);
+
+        if ( $this->http_https == 'http' ){
+            $ipn_url = str_replace('https:','http:',$ipn_url);
+        }
+        else 
+        {
+            $ipn_url = str_replace('http:','https:',$ipn_url);
+        }
+
+        
+        #WPML Integration add by omeravhar 23.11.16
+        $wpml_token == false;
+
+        if ( function_exists('icl_object_id') ) {
+            if ((ICL_LANGUAGE_CODE) &&
+                ( strtolower(ICL_LANGUAGE_CODE) == strtolower($this->real_token_lang_symbol_1)) &&
+                ( $this->real_token_lang_1)){
+
+                $this->payment_token = $this->real_token_lang_1;
+                # set parameter to check token in icredit-ipn.php //add by omeravhar 24.11.16
+                $wpml_token = true;
+            }
+        }
 
         $postData = array('IPNURL'=> $ipn_url,
             'Order'=>$order->id,
             'Custom1'=>$order->id,
+            'Custom2'=>$wpml_token,
             'HideItemList'=>$this->hide_items,
             'GroupPrivateToken' => $this->payment_token,
             'Items' => $items,
@@ -705,8 +704,6 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 $postData['DocumentLanguage'] = ($billing_country == 'IL')?'he':'en';
                 break;
         }
-
-
 
         switch ($this->exempt_vat){
             case 'always_not_exempt':
@@ -768,6 +765,7 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         $logger->add('rivhit_process_payment', 'All data collected before Sending to Rivhit');
 
         $jsonData = json_encode($postData);
+
 
 
         $response = wp_remote_post( $this->icredit_payment_gateway_url, array(
