@@ -2,6 +2,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
+ * 30.05.17 - $line_total update by omer avhar 
+ * 22.05.17 - currency update for multi currency's - add by omer avhar  
+ * 05.04.17  -  get_total_discount() --> update for woocommerce 3.0 - add by omer avhar  
+ * 30.3.17  - "PriceIncludeVAT":true - add by omer avhar  
  * iCredit Payment Gateway
  *
  * Provides a iCredit Payment Gateway.
@@ -75,6 +79,8 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         $this->popup_mode = $this->get_option('popup_mode');
         $this->iframe_height = $this->get_option('iframe_height');
         $this->http_https = $this->get_option('http_https');    
+        # ipn_integration add by omeravhar 30.05.17
+        $this->ipn_integration = $this->get_option('ipn_integration'); 
 
 
 
@@ -137,7 +143,7 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                     <h3 class="step-title"><?php _e('Payment', 'woocommerce_icredit'); ?></h3>
                 </div>
                 <div class="checkout-frame">
-                    <iframe id="icredit-iframe" width="100%" height="<?php echo $this->iframe_height; ?>" src="<?php echo $icredit_payment_url; ?>" scrolling="no"></iframe>
+                    <iframe id="icredit-iframe" width="100%" height="<?php echo $this->iframe_height; ?>" src="<?php echo $icredit_payment_url; ?>" scrolling="yes"></iframe>
 
                 </div><!-- .checkout-frame -->
 
@@ -226,6 +232,12 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 'default' => 'http',
             ),
             
+            
+            'ipn_integration' => array(
+                'title' => __('IPN Integration', 'woocommerce_icredit'),
+                'type' => 'text',
+                'default' => ''
+            ),
 
             'document_language'	=> array(
                 'title'	=> __('Document Language', 'woocommerce_icredit'),
@@ -598,7 +610,7 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         foreach ($order_items as $order_item){
             $product = new WC_Product($order_item['product_id']);
 
-            $line_total = ($order_item['line_tax'] > 0)?number_format( ($order_item['line_total'] + $order_item['line_tax'])/$order_item['qty'], 2): number_format($order_item['line_total']/$order_item['qty'], 2);
+            $line_total = ($order_item['line_tax'] > 0)?number_format( ($order_item['subtotal'] + $order_item['line_tax'])/$order_item['qty'], 2): number_format($order_item['subtotal']/$order_item['qty'], 2);
 
 
             $attributes = array();
@@ -665,8 +677,14 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         {
             $ipn_url = str_replace('http:','https:',$ipn_url);
         }
-
         
+        #IPN_Integration
+        $ipn_integration = '';
+        if ( $this->ipn_integration ){
+            $ipn_integration = $this->ipn_integration;
+        }
+        
+ 
         #WPML Integration add by omeravhar 23.11.16
         $wpml_token == false;
 
@@ -680,18 +698,44 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
                 $wpml_token = true;
             }
         }
+        
+        
+        $currency = get_woocommerce_currency();
+            switch ($currency){
+                    case "ILS":
+                      $currency="1";
+                      break;
+                    case "USD":
+                      $currency="2";
+                      break;
+                    case "EUR":
+                      $currency="3";
+                      break;
+                    case "GBP":
+                      $currency="4";
+                      break;
+                    case "AUD":
+                      $currency="5";
+                      break;
+                    case "CAD":
+                      $currency="6";
+                      break;
+		    }
 
         $postData = array('IPNURL'=> $ipn_url,
             'Order'=>$order->id,
             'Custom1'=>$order->id,
             'Custom2'=>$wpml_token,
+            'Custom3'=>$ipn_integration,
             'HideItemList'=>$this->hide_items,
             'GroupPrivateToken' => $this->payment_token,
             'Items' => $items,
             'MaxPayments' => $this->max_payments,
             'CreditFromPayment' => $this->credit_from_payment,
             'CreateToken' => $this->create_token,
-            'Discount' => $order->get_order_discount()
+            'Discount' => $order->get_total_discount(),
+            'PriceIncludeVAT' => true,
+            'Currency' => $currency,
         );
         switch ($this->document_language){
             case 'always_hebrew':

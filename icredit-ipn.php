@@ -78,7 +78,24 @@ $ipn_logger->add('rivhit_ipn', 'DocumentURL: '. $IPNPost['DocumentURL']);
 
         $ipn_logger->add('rivhit_ipn', 'Order ID: '. $order_id);
 
+if($IPNPost['Custom3']){
+        $ipn_integration_url = $IPNPost['Custom3'];
+        
 
+        $response = wp_remote_post( $ipn_integration_url, array(
+        'method' => 'POST',
+        'timeout' => 45,
+        'redirection' => 5,
+        'httpversion' => '1.0',
+        'blocking' => true,
+        'headers' => array('Content-Type' => 'application/json'),
+        'body' => $IPNPost,
+        'cookies' => array()
+    ));
+         
+        }
+        
+        
         add_post_meta($order_id, 'icredit_ccnum', $IPNPost['TransactionCardNum']);
         add_post_meta($order_id, 'icredit_cardname', $IPNPost['TransactionCardName']);
         add_post_meta($order_id, 'SaleId', $IPNPost['SaleId']);
