@@ -590,7 +590,7 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
 	 * @param int $order_id
 	 * @return array
 	 */
-    function process_payment( $order_id ){
+    function process_payment( $order_id,$url_redirect='' ){
         global $woocommerce;
 
         $logger = new WC_Logger();
@@ -774,6 +774,10 @@ class WC_Gateway_ICredit extends WC_Payment_Gateway {
         }
         else {
             $redirect_url = $order->get_checkout_order_received_url();
+        }
+        #redirect url for order admin page 
+        if($url_redirect){
+            $redirect_url=$url_redirect;
         }
         
         

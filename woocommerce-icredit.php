@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Woocommerce iCredit
  * Description: Enable iCredit (Rivhit) Payment Gateway
- * Version: 1.2.2
+ * Version: 1.2.17
  * Author: rivhit.co.il
  * Requires at least: 3.5
  * Tested up to: 4.3
